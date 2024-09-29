@@ -1,5 +1,6 @@
 const apiKey = "e5964b4ef51d4a5dbc2190433242809";
 const apiUrl = "https://api.weatherapi.com/v1/current.json?";
+const forecastUrl = "https://api.weatherapi.com/v1/forecast.json?"
  
 
 document.getElementById("btn-Search").addEventListener("click",btnSearch)
@@ -9,7 +10,7 @@ function btnSearch() {
 
     // Hide previous weather info and error message
     clearWeatherInfo();
-
+    
     if (!location) {
         // If the input is empty, show an error
         showError('Please enter a location.');
@@ -29,7 +30,6 @@ function btnSearch() {
             document.getElementById("error-message").innerHTML = '';
 
             // Update weather information
-            console.log(data);
             document.getElementById("city").innerHTML = data.location.name;
             document.getElementById("time").innerHTML = data.location.localtime;
             document.getElementById("temp").innerHTML = Math.round(data.current.temp_c) + "°C";
@@ -40,10 +40,10 @@ function btnSearch() {
             
             // Show the weather div after data is fetched
             document.querySelector('.weather').style.display = 'block';
-            console.log (currentWeather);
 
             // Update the weather icon based on the current weather condition
             updateWeatherIcon(currentWeather);
+            forecast(location);
 
         })
 
@@ -104,6 +104,31 @@ function clearWeatherInfo() {
 }
 
 
+function forecast(location){
+    let forecastDaysDetails = document.getElementById("forecast");
+
+    let oneDayDetails = `<h1></h1>
+                        <h1></h1>
+                        <h1></h1>
+                        <h1></h1>` 
 
 
+    fetch(`${forecastUrl}key=${apiKey}&q=${location}&days=3`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
 
+        const forecastDays = data.forecast.forecastday;
+
+        forecastDays.forEach(forecastDay => {
+
+            oneDayDetails += `<h1 id="date">${forecastDay.date}</h1>
+                                <h1 id="maxTemp">${forecastDay.day.maxtemp_c} °C</h1>
+                                <h1 id="minTemp">${forecastDay.day.mintemp_c}°C</h1>
+                                <h1 id="condition">${forecastDay.day.condition.text}</h1>`
+            
+        });
+
+        forecastDaysDetails.innerHTML = oneDayDetails;
+    })
+}

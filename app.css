@@ -4,7 +4,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Poppins', sans-serif;
     
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 .weather {
-    display: none; /* Initially hidden */
+    display: none;
     width: 90%;
     max-width: 470px;
     background-color: #0093E9;
@@ -60,7 +60,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    /* font-family: Arial, sans-serif; */
     color: #000000;
     margin: 100px auto 0;
     margin-bottom: 30px;

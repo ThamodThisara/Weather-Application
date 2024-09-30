@@ -10,11 +10,9 @@ document.getElementById("btn-Historical-Search").addEventListener("click", getHi
 function btnSearch() {
     let location = document.getElementById("inputLocation").value;
 
-    // Hide previous weather info and error message
     clearWeatherInfo();
     
     if (!location) {
-        // If the input is empty, show an error
         showError('Please enter a location.');
         return;
     }
@@ -185,18 +183,18 @@ function getHistoricalWeather() {
         console.log(historicalDay)
 
         const card = `
-            <div class="col-md-4">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Date: ${historicalDay.date}</h5>
-                        <img src="img/${getIcon(historicalDay.day.condition.text)}" alt="Weather Icon" class="card-img-top weather-icon">
-                        <p class="card-text"><strong>${historicalDay.day.condition.text}</strong></p>
-                        <p class="card-text">Max Temp: ${historicalDay.day.maxtemp_c}°C</p>
-                        <p class="card-text">Min Temp: ${historicalDay.day.mintemp_c}°C</p>
-                        <p class="card-text">Average Temp: ${historicalDay.day.avgtemp_c}°C</p>
+                <div class="col-lg-12">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">${historicalDay.date}</h5>
+                            <img src="img/${getIcon(historicalDay.day.condition.text)}" alt="Weather Icon" class="card-img-top weather-icon">
+                            <p class="card-text"><strong>${historicalDay.day.condition.text}</strong></p>
+                            <p class="card-text">Max Temp:  ${historicalDay.day.maxtemp_c}°C</p>
+                            <p class="card-text">Min Temp: ${historicalDay.day.mintemp_c}°C</p>
+                            <p class="card-text">Average Temp: ${historicalDay.day.avgtemp_c}°C</p>
+                        </div>
                     </div>
                 </div>
-            </div>
         `;
 
         historicalDataDetails.innerHTML += card;
@@ -205,4 +203,3 @@ function getHistoricalWeather() {
         console.error(error);
     });
 }
-

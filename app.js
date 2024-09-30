@@ -80,6 +80,8 @@ function updateWeatherIcon(currentWeather) {
         weatherIcon.src = "img/Heavy-rain-with-thunder.png";
     } else if (currentWeather === "Light rain shower") {
         weatherIcon.src = "img/Light-rain-shower.png";
+    } else if (currentWeather === "Moderate rain") {
+        weatherIcon.src = "img/patchlyrain.png";
     }
     weatherIcon.style.display = 'block';
 }
@@ -104,31 +106,52 @@ function clearWeatherInfo() {
 }
 
 
-function forecast(location){
+function forecast(location) {
     let forecastDaysDetails = document.getElementById("forecast");
-
-    let oneDayDetails = `<h1></h1>
-                        <h1></h1>
-                        <h1></h1>
-                        <h1></h1>` 
-
+    forecastDaysDetails.innerHTML = ''; // Clear previous forecast
 
     fetch(`${forecastUrl}key=${apiKey}&q=${location}&days=3`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-
         const forecastDays = data.forecast.forecastday;
+        const title = `<div><h1>Forecast</h1></div>`
+        forecastDaysDetails.innerHTML = title;
 
         forecastDays.forEach(forecastDay => {
-
-            oneDayDetails += `<h1 id="date">${forecastDay.date}</h1>
-                                <h1 id="maxTemp">${forecastDay.day.maxtemp_c} °C</h1>
-                                <h1 id="minTemp">${forecastDay.day.mintemp_c}°C</h1>
-                                <h1 id="condition">${forecastDay.day.condition.text}</h1>`
-            
+            const card = `
+                <div class="col-md-4">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">${forecastDay.date}</h5>
+                            <img src="img/${getIcon(forecastDay.day.condition.text)}" alt="Weather Icon" class="card-img-top weather-icon">
+                            <p class="card-text"><strong>${forecastDay.day.condition.text}</strong></p>
+                            <p class="card-text">Max Temp: ${forecastDay.day.maxtemp_c}°C</p>
+                            <p class="card-text">Min Temp: ${forecastDay.day.mintemp_c}°C</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            forecastDaysDetails.innerHTML += card; // Append each card
         });
-
-        forecastDaysDetails.innerHTML = oneDayDetails;
     })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+// Helper function to get weather icons based on condition
+function getIcon(condition) {
+    if (condition === "Clear") return "sun.png";
+    if (condition === "Rain") return "rain.png";
+    if (condition === "Patchy rain nearby") return "patchlyrain.png";
+    if (condition === "Light drizzle") return "Drizzle.png";
+    if (condition === "Snow") return "snow.png";
+    if (condition === "Mist") return "mist.png";
+    if (condition === "Cloudy") return "cloudy.png";
+    if (condition === "Partly cloudy") return "cloudy.png";
+    if (condition === "Overcast") return "overcast.png";
+    if (condition === "Moderate or heavy rain with thunder") return "Heavy-rain-with-thunder.png";
+    if (condition === "Light rain shower") return "Light-rain-shower.png";
+    if (condition === "Moderate rain") return "patchlyrain.png";
+    return "default.png";
 }

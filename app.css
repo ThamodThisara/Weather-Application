@@ -4,6 +4,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: 'Poppins', sans-serif !important;
+    
 }
 
 .container {
@@ -58,7 +60,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     color: #000000;
     margin: 100px auto 0;
     margin-bottom: 30px;
@@ -79,7 +81,7 @@ body {
 #city {
     font-size: 2rem;
     font-weight: bold;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
     color: black;
     margin-left: 15px; 
     text-align: center;
@@ -93,4 +95,37 @@ body {
     font-size: 1.5rem;
     margin: 5px 0; 
     text-align: center;
+}
+
+
+#forecast {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #f8f9fa; /* Light gray background for card */
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
 }
